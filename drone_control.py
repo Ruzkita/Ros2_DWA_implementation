@@ -36,7 +36,16 @@ class Drone(Node):
         self.theta = 0
     
     def user_interface(self):
-        
+        input("X: ", self.x)
+        input("Y: ", self.y)
+        input("Z: ", self.z)
+        position_setpoint(self.x, self.y, self.z)
+
+    def position_setpoint(self, x:float, y:float, z:float):
+        msg = TrajectorySetpoint
+        msg.position = [x,y,z]
+        msg.yaw = 1.57079  
+        msg.timestamp = int(self.get_clock().now().nanoseconds / 1000)
 
 
 
@@ -48,5 +57,5 @@ if __name__ == "__main__":
     try:
         drone = Robot()
         #drone.user_interface()
-    except rclpy.ROSInterruptException:
+    except rclpy.ROSInterruptException:#funciona?
         pass
