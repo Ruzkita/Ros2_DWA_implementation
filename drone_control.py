@@ -20,7 +20,7 @@
 
 import rclpy
 from rclpy.node import Node
-from px4_msgs.msg import OffboardControlMode
+from px4_msgs.msg import OffboardControlMode, TrajectorySetpoint, VehicleCommand, VehicleLocalPosition, VehicleStatus
 
 
 class Drone(Node):
@@ -34,6 +34,9 @@ class Drone(Node):
         self.v = 0
         self.w = 0
         self.theta = 0
+    
+    def user_interface(self):
+        
 
 
 
