@@ -1,11 +1,9 @@
 # Log Book
 ### Here I will take note of every progress and trouble I had while writing this code. I'll divide this into two kinds os Logs (info and problem)
-### Probllem Log 1: VehicleCommand
 
 <details>
 <summary>INFO LOGS</summary>
 
-### Info Log 1: Getting started
   
 ## Info Log 1: Getting started
 Assuming you have already installed [ROS 2](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html) and [PX4-Autopilot](https://docs.px4.io/main/en/ros2/user_guide.html), we need to create a folder to our work
@@ -32,77 +30,6 @@ colcon build
 
 <details>
 <summary>PROBLEM LOGS</summary>
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-
-.
-
-.
-
-.
-
-.
-
-
-.
-
-.
-
-
-
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-
-.
-
-.
-
-.
-
   
 ## Probllem Log 1: VehicleCommand
 I need the VehicleCommand.msg message from PX4-Autopilot but i don't know how it works exactly and in the repository there is not enought info about this.
