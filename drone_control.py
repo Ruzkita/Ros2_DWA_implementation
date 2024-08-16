@@ -8,16 +8,6 @@
     #movimentação do drone
         #uso da camera para interpretar o ambiente
             #avaliação de trajetoria
-            #monitoramento de obstáculos#!/usr/bin/env python3
-
-#controlar o drone
-    #interface do usuário
-        #comando de posição
-        #entrada em modo offboard
-        #notificações da situação do trajeto
-    #movimentação do drone
-        #uso da camera para interpretar o ambiente
-            #avaliação de trajetoria
             #monitoramento de obstáculos
         #configuração de movimentação
             #graus de liberdade
