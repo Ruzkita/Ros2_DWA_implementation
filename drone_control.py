@@ -27,14 +27,18 @@ from px4_msgs.msg import OffboardControlMode, TrajectorySetpoint, VehicleCommand
 class Drone(Node):
     def __init__(self):
         super().__init__("DWA_DRONE_CONTROL")
-        self.x = 0
-        self.y = 0
-        self.z = 0
-        self.u = 0
-        self.v = 0
-        self.w = 0
-        self.theta = 0
-        self.phi = 0
+        self.x = [0.0, 5.0, 3.0]
+        self.y = [0.0, 2.0, 3.0]
+        self.z = [5.0, 5.0, 3.0]
+        self.u = 0.0
+        self.v = 0.0
+        self.w = 0.0
+        self.i = 0
+        self.j = 0
+        self.theta = 0.0
+        self.phi = 0.0
+        self.threshold = 0.5
+        self.offboard_counter = 0.0
 
 
         qos_profile = QoSProfile(reliability=ReliabilityPolicy.BEST_EFFORT, durability=DurabilityPolicy.TRANSIENT_LOCAL, history=HistoryPolicy.KEEP_LAST, depth=1)
@@ -77,11 +81,11 @@ class Drone(Node):
     
     def trajectory_setpoint(self, x:float, y:float, z:float):
         msg = TrajectorySetpoint()
-        msg.position = [x, y, z]
+        msg.position = [-x, -y, -z]
         msg.yaw = 1.57079
         msg.timestamp = int(self.get_clock().now().nanoseconds / 1000)
         self.trajectory_setpoint_publisher.publish(msg)
-        self.get_logger().info(f"Indo para {[x, y, z]}")
+        self.get_logger().info(f"Indo para {[x, y, z]} com i = {self.i} e j = {self.j} z = {self.vehicle_local_position.z}")
 
     def vehicle_status_callback(self, vehicle_status):
         self.vehicle_status = vehicle_status
@@ -99,16 +103,32 @@ class Drone(Node):
         msg.timestamp = int(self.get_clock().now().nanoseconds / 1000)
         self.offboard_control_mode_publisher.publish(msg)
 
-
-
-    def user_interface(self):
-        self.engange_offboard()
-        self.arm_vehicle()
-        self.trajectory_setpoint(0.0, 0.0, -5.0)
     
     def timer_callback(self) -> None:
+
         self.offboard_control_mode()
-        self.user_interface()
+
+        if self.offboard_counter == 10:
+            self.engange_offboard()
+            self.arm_vehicle()
+        
+        if self.offboard_counter < 11:
+            self.offboard_counter += 1
+
+        if self.vehicle_status.nav_state == VehicleStatus.NAVIGATION_STATE_OFFBOARD:
+
+            self.trajectory_setpoint(self.x[self.i], self.y[self.i], self.z[self.i])
+
+            if (-self.x[self.i] - self.threshold < self.vehicle_local_position.x < -self.x[self.i] + self.threshold) and self.j == 0:
+                self.j += 1
+            if (-self.y[self.i] - self.threshold < self.vehicle_local_position.y < -self.y[self.i] + self.threshold) and self.j == 1:
+                self.j += 1
+            if (-self.z[self.i] - self.threshold < self.vehicle_local_position.z < -self.z[self.i] + self.threshold) and self.j == 2:
+                self.j += 1
+        
+            if self.j == 3 and self.i < len(self.x) - 1:
+                self.i += 1
+                self.j = 0
 
 
 def main (args = None) -> None:
