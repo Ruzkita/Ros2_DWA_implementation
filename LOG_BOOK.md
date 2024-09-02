@@ -31,7 +31,7 @@ colcon build
 ## Info Log 2: Publishers, subscribers and the timer
 If I get it right, the publishers and subscribers in the PX4-Ros2 interaction work as a comunication with the drone. As the publishers are used to transmit info and commands for the drone, the subscribers are used to receive info about the drone and the external environment. So, if you want to command your vehicle you need to create a publisher and if you want to receive info from your vehicle you need to create a subscriber.
 
-# Creating a **publisher**:
+### Creating a **publisher**:
 Every publisher will follow this structure
 
 ```
@@ -44,7 +44,7 @@ using the VehicleCommand.msg from the drone_control.py we will have
 self.vehicle_command_publisher = self.create_publisher(VehicleCommand, '/fmu/in/vehicle_command', qos_profile)
 ```
 
-# Creating a **subscriber**:
+### Creating a **subscriber**:
 The subscriber creation follow almost the same structure
 
 ```
@@ -56,7 +56,7 @@ and using the VehicleStatus.msg as an example
 self.vehicle_status_subscriber = self.create_subscription(VehicleStatus, '/fmu/out/vehicle_status', self.vehicle_status_callback, qos_profile)
 ```
 
-# Timer:
+### Timer:
 The timer is a function that will be called every x seconds. Your structure is
 ```
 .create_timer(timer_period_sec, callback)
