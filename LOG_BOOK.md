@@ -31,10 +31,12 @@ colcon build
 <details>
 <summary>PROBLEM LOGS</summary>
   
-## Problem Log 1: VehicleCommand
+## Problem Log 1: VehicleCommand - SOLVED
 I need the VehicleCommand.msg message from PX4-Autopilot but i don't know how it works exactly and in the repository there is not enought info about this.
 
 **Edit:** I almost understand the Vehicle Command now and I can make the drone arm, but still receiving some error messages about the "command" variable.
+
+**Edit2:** After I set a trajectory the vehicle stop showing errors.
 
 </details>
 
